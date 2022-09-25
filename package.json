@@ -1,0 +1,58 @@
+{
+  "name": "storybook-addon-css-custom-properties",
+  "version": "1.0.0",
+  "description": "Storybook's addon to pilot CSS custom properties (a.k.a CSS variables)",
+  "main": "dist/preset.js",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js"
+  ],
+  "keywords": [
+    "storybook",
+    "addons"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rochejul/storybook-addon-css-custom-properties.git"
+  },
+  "author": {
+    "name": "Julien Roche",
+    "email": "roche.jul@gmail.com",
+    "url": "http://julienroche.blogspot.fr/"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rochejul/storybook-addon-css-custom-properties/issues"
+  },
+  "homepage": "https://github.com/rochejul/storybook-addon-css-custom-properties#readme",
+  "engines": {
+    "node": ">=14.17.0",
+    "npm": ">=6.14.11"
+  },
+  "volta": {
+    "node": "14.17.0",
+    "npm": "6.14.11",
+    "yarn": "1.22.10"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.18.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  }
+}
