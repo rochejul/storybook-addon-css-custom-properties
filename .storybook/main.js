@@ -7,7 +7,7 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "../src/preset.js" //👈 Our addon registered here
+    "../preset.js" //👈 Our addon registered here
   ],
   "framework": "@storybook/react"
 }
