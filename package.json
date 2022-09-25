@@ -13,7 +13,9 @@
     "addons"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel ./src --out-dir ./dist",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -54,5 +56,28 @@
     "react-dom": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@babel/core": "7.19.1",
+    "@storybook/addon-actions": "6.5.12",
+    "@storybook/addon-essentials": "6.5.12",
+    "@storybook/addon-interactions": "6.5.12",
+    "@storybook/addon-links": "6.5.12",
+    "@storybook/builder-webpack4": "6.5.12",
+    "@storybook/manager-webpack4": "6.5.12",
+    "@storybook/react": "6.5.12",
+    "@storybook/testing-library": "0.0.13",
+    "babel-loader": "8.2.5"
+  },
+  "storybook": {
+    "displayName": "CSS variables",
+    "icon": "https://raw.githubusercontent.com/rochejul/storybook-addon-css-custom-properties/main/icon.png",
+    "supportedFrameworks": [
+      "react",
+      "vue",
+      "angular",
+      "web-components",
+      "ember"
+    ]
   }
 }
