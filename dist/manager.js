@@ -148,7 +148,12 @@ var AddonCssVarPanel = function AddonCssVarPanel() {
 _addons.addons.register(ADDON_ID, function (api) {
   _addons.addons.add(PANEL_ID, {
     type: _addons.types.PANEL,
-    title: 'CSS vars',
+    title: function title() {
+      var config = (0, _api.useParameter)(ADDON_ID, null);
+      var count = config && Object.keys(config.vars).length || 0;
+      var suffix = count === 0 ? '' : " (".concat(count, ")");
+      return "CSS vars".concat(suffix);
+    },
     render: function render(_ref2) {
       var active = _ref2.active,
           key = _ref2.key;

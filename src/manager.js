@@ -111,7 +111,12 @@ const AddonCssVarPanel = () => {
 addons.register(ADDON_ID, (api) => {
   addons.add(PANEL_ID, {
     type: types.PANEL,
-    title: 'CSS vars',
+    title() {
+      const config = useParameter(ADDON_ID, null);
+      const count = config && Object.keys(config.vars).length || 0;
+      const suffix = count === 0 ? '' : ` (${count})`;
+      return `CSS vars${suffix}`;
+    },
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
         <AddonCssVarPanel />
