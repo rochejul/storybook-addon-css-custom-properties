@@ -29,3 +29,10 @@ Primary.args = {
   primary: true,
   label: 'Button',
 };
+
+export const Secondary = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Secondary.args = {
+  primary: true,
+  label: 'Button 2',
+};
