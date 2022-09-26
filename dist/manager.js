@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getIframeRoot = void 0;
+
 var _react = _interopRequireDefault(require("react"));
 
 var _addons = require("@storybook/addons");
@@ -25,15 +30,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var ADDON_ID = 'cssVars';
 var PANEL_ID = "".concat(ADDON_ID, "/panel");
 
+var getIframeRoot = function getIframeRoot() {
+  var iframe = document.querySelector('iframe#storybook-preview-iframe');
+  var root = iframe.contentWindow.document.querySelector('#root');
+  return root;
+};
+
+exports.getIframeRoot = getIframeRoot;
+
 var AddonCssVarTable = function AddonCssVarTable() {
   var _useStorybookState = (0, _api.useStorybookState)(),
       path = _useStorybookState.path;
 
   var _useArgs = (0, _api.useArgs)(),
-      _useArgs2 = _slicedToArray(_useArgs, 3),
-      args = _useArgs2[0],
-      updateArgs = _useArgs2[1],
-      resetArgs = _useArgs2[2];
+      _useArgs2 = _slicedToArray(_useArgs, 1),
+      args = _useArgs2[0];
 
   var _useGlobals = (0, _api.useGlobals)(),
       _useGlobals2 = _slicedToArray(_useGlobals, 1),
@@ -60,6 +71,48 @@ var AddonCssVarTable = function AddonCssVarTable() {
       }
     };
   });
+  var cssVariablesStates = {};
+
+  var applyCssVariables = function applyCssVariables() {
+    var rootElement = getIframeRoot();
+
+    for (var _i2 = 0, _Object$entries = Object.entries(cssVariablesStates); _i2 < _Object$entries.length; _i2++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+          cssVariableName = _Object$entries$_i[0],
+          cssVariableValue = _Object$entries$_i[1];
+
+      rootElement.style.setProperty(cssVariableName, cssVariableValue);
+    }
+  };
+
+  var resetCssVariables = function resetCssVariables() {
+    var rootElement = getIframeRoot();
+
+    for (var _i3 = 0, _Object$entries2 = Object.entries(cssVariablesStates); _i3 < _Object$entries2.length; _i3++) {
+      var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
+          cssVariableName = _Object$entries2$_i[0],
+          cssVariableValue = _Object$entries2$_i[1];
+
+      rootElement.style.removeProperty(cssVariableName);
+    }
+  };
+
+  var resetArgs = function resetArgs() {
+    resetCssVariables();
+    cssVariablesStates = {};
+  };
+
+  var updateArgs = function updateArgs(arg) {
+    var _Object$keys = Object.keys(arg),
+        _Object$keys2 = _slicedToArray(_Object$keys, 1),
+        cssVariableName = _Object$keys2[0];
+
+    var cssVariableValue = arg[cssVariableName]; // Do something when we change values
+
+    cssVariablesStates[cssVariableName] = cssVariableValue;
+    applyCssVariables();
+  };
+
   return /*#__PURE__*/_react["default"].createElement(_components.ArgsTable, {
     key: path,
     // resets state when switching stories
