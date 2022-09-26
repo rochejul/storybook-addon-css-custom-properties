@@ -12,7 +12,10 @@ export default {
   },
   parameters: {
     cssVars: {
-      '--button-background-color': '#1ea7fd'
+      elementQuery: 'button',
+      vars: {
+        '--button-background-color': '#1ea7fd'
+      }
     }
   }
 };

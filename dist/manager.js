@@ -1,10 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getIframeRoot = void 0;
-
 var _react = _interopRequireDefault(require("react"));
 
 var _addons = require("@storybook/addons");
@@ -36,7 +31,17 @@ var getIframeRoot = function getIframeRoot() {
   return root;
 };
 
-exports.getIframeRoot = getIframeRoot;
+var getElementToApplyCssVars = function getElementToApplyCssVars(_ref) {
+  var query = _ref.query;
+  var rootElement = getIframeRoot();
+  var element = rootElement;
+
+  if (query) {
+    element = rootElement.querySelector(query);
+  }
+
+  return element || rootElement;
+};
 
 var AddonCssVarTable = function AddonCssVarTable() {
   var _useStorybookState = (0, _api.useStorybookState)(),
@@ -51,8 +56,8 @@ var AddonCssVarTable = function AddonCssVarTable() {
       globals = _useGlobals2[0];
 
   var config = (0, _api.useParameter)(ADDON_ID, null);
-  var rows = Object.keys(config).map(function (cssVarName) {
-    var cssVarValue = config[cssVarName];
+  var rows = Object.keys(config.vars).map(function (cssVarName) {
+    var cssVarValue = config.vars[cssVarName];
     return {
       name: cssVarName,
       description: "CSS var (".concat(cssVarName, ")"),
@@ -74,7 +79,9 @@ var AddonCssVarTable = function AddonCssVarTable() {
   var cssVariablesStates = {};
 
   var applyCssVariables = function applyCssVariables() {
-    var rootElement = getIframeRoot();
+    var rootElement = getElementToApplyCssVars({
+      query: config.elementQuery
+    });
 
     for (var _i2 = 0, _Object$entries = Object.entries(cssVariablesStates); _i2 < _Object$entries.length; _i2++) {
       var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
@@ -86,7 +93,9 @@ var AddonCssVarTable = function AddonCssVarTable() {
   };
 
   var resetCssVariables = function resetCssVariables() {
-    var rootElement = getIframeRoot();
+    var rootElement = getElementToApplyCssVars({
+      query: config.elementQuery
+    });
 
     for (var _i3 = 0, _Object$entries2 = Object.entries(cssVariablesStates); _i3 < _Object$entries2.length; _i3++) {
       var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
@@ -129,7 +138,7 @@ var AddonCssVarTable = function AddonCssVarTable() {
 var AddonCssVarPanel = function AddonCssVarPanel() {
   var config = (0, _api.useParameter)(ADDON_ID, null);
 
-  if (!config) {
+  if (!config || Object.keys(config.vars).length === 0) {
     return /*#__PURE__*/_react["default"].createElement("div", null, "No story parameter defined");
   }
 
@@ -140,9 +149,9 @@ _addons.addons.register(ADDON_ID, function (api) {
   _addons.addons.add(PANEL_ID, {
     type: _addons.types.PANEL,
     title: 'CSS vars',
-    render: function render(_ref) {
-      var active = _ref.active,
-          key = _ref.key;
+    render: function render(_ref2) {
+      var active = _ref2.active,
+          key = _ref2.key;
       return /*#__PURE__*/_react["default"].createElement(_components.AddonPanel, {
         active: active,
         key: key

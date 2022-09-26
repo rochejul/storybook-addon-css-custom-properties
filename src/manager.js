@@ -7,10 +7,21 @@ import { AddonPanel, ArgsTable } from '@storybook/components';
 const ADDON_ID = 'cssVars';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
-export const getIframeRoot = () => {
+const getIframeRoot = () => {
   const iframe = document.querySelector('iframe#storybook-preview-iframe');
   const root = iframe.contentWindow.document.querySelector('#root');
   return root;
+}
+
+const getElementToApplyCssVars = ({ query }) => {
+  const rootElement = getIframeRoot();
+  let element = rootElement;
+
+  if (query) {
+    element = rootElement.querySelector(query);
+  }
+
+  return element || rootElement;
 }
 
 const AddonCssVarTable = () => {
@@ -19,8 +30,8 @@ const AddonCssVarTable = () => {
   const [ globals ] = useGlobals();
 
   const config = useParameter(ADDON_ID, null);
-  const rows = Object.keys(config).map((cssVarName) => {
-    const cssVarValue = config[cssVarName];
+  const rows = Object.keys(config.vars).map((cssVarName) => {
+    const cssVarValue = config.vars[cssVarName];
 
     return {
       name: cssVarName,
@@ -44,7 +55,7 @@ const AddonCssVarTable = () => {
   let cssVariablesStates = { };
 
   const applyCssVariables = () => {
-    const rootElement = getIframeRoot();
+    const rootElement = getElementToApplyCssVars({ query: config.elementQuery });
 
     for (const [cssVariableName, cssVariableValue] of Object.entries(cssVariablesStates)) {
       rootElement.style.setProperty(cssVariableName, cssVariableValue);
@@ -52,7 +63,7 @@ const AddonCssVarTable = () => {
   };
 
   const resetCssVariables = () => {
-    const rootElement = getIframeRoot();
+    const rootElement = getElementToApplyCssVars({ query: config.elementQuery });
 
     for (const [cssVariableName, cssVariableValue] of Object.entries(cssVariablesStates)) {
       rootElement.style.removeProperty(cssVariableName);
@@ -90,7 +101,7 @@ const AddonCssVarTable = () => {
 const AddonCssVarPanel = () => {
   const config = useParameter(ADDON_ID, null);
 
-  if (!config) {
+  if (!config || Object.keys(config.vars).length === 0) {
     return <div>No story parameter defined</div>;
   }
 
