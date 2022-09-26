@@ -31,11 +31,12 @@ const AddonCssVarTable = () => {
 
   const config = useParameter(ADDON_ID, null);
   const rows = Object.keys(config.vars).map((cssVarName) => {
-    const cssVarValue = config.vars[cssVarName];
+    const cssConfig = config.vars[cssVarName];
+    const { value: cssVarValue, description: cssVarDescription = `CSS var (${cssVarName})`, category: cssVarCategory, subcategory: cssVarSubcategory } = cssConfig;
 
     return {
       name: cssVarName,
-      description: `CSS var (${cssVarName})`,
+      description: cssVarDescription,
       category: "",
       key: cssVarName,
       control: {
@@ -45,6 +46,8 @@ const AddonCssVarTable = () => {
       },
       table: {
         type: "CSS Custom Property",
+        category: cssVarCategory,
+        subcategory: cssVarSubcategory,
         defaultValue: {
           summary: cssVarValue,
         },
@@ -85,16 +88,14 @@ const AddonCssVarTable = () => {
   };
 
   return <ArgsTable
-    {...{
-      key: path, // resets state when switching stories
-      compact: true,
-      rows,
-      args,
-      globals,
-      updateArgs,
-      resetArgs,
-      inAddonPanel: true,
-    }}
+    key={path}
+    compact={false}
+    inAddonPanel={true}
+    rows={rows}
+    args={args}
+    globals={globals}
+    updateArgs={updateArgs}
+    resetArgs={resetArgs}
   />;
 };
 

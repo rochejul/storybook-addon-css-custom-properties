@@ -14,7 +14,11 @@ export default {
     cssVars: {
       elementQuery: 'button',
       vars: {
-        '--button-background-color': '#1ea7fd'
+        '--button-background-color': {
+          value: '#1ea7fd',
+          description: 'Background color of the button',
+          category: 'Colors'
+        }
       }
     }
   }
