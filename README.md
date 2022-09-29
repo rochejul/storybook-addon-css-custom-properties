@@ -2,7 +2,35 @@
 
 Storybook's addon to pilot CSS custom properties (a.k.a CSS variables)
 
+## Install it
+
+### From git
+
+````bash
+npm install --save-dev --save-exact git+https://github.com/rochejul/storybook-addon-css-custom-properties#v1.0.1
+````
+
 ## Example of usage
+
+### In your .storybook/main.js
+
+````js
+module.exports = {
+  "stories": [
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+  ],
+  "addons": [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "storybook-addon-css-custom-properties" //👈 Our addon registered here
+  ],
+  "framework": "@storybook/react"
+}
+````
+
+### In your story
 
 ````js
 export default {
