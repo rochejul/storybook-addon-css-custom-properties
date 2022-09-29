@@ -116,7 +116,6 @@ var AddonCssVarTable = function AddonCssVarTable() {
   var resetArgs = function resetArgs() {
     resetCssVariables();
     cssVariablesStates = {};
-    rows.pop();
   };
 
   var updateArgs = function updateArgs(arg) {
