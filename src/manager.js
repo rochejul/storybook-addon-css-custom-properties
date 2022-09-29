@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { addons, types } from '@storybook/addons';
 import { useParameter, useStorybookState, useArgs, useGlobals } from '@storybook/api';
@@ -6,6 +6,10 @@ import { AddonPanel, ArgsTable } from '@storybook/components';
 
 const ADDON_ID = 'cssVars';
 const PANEL_ID = `${ADDON_ID}/panel`;
+
+const clone = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
 
 const getIframeRoot = () => {
   const iframe = document.querySelector('iframe#storybook-preview-iframe');
@@ -55,43 +59,41 @@ const AddonCssVarTable = () => {
     };
   });
 
-  let cssVariablesStates = { };
+  const [getRows, setRows] = useState(rows);
 
-  const applyCssVariables = () => {
+  const applyCssVariables = (cssVariableName, cssVariableValue) => {
     const rootElement = getElementToApplyCssVars({ query: config.elementQuery });
 
-    for (const [cssVariableName, cssVariableValue] of Object.entries(cssVariablesStates)) {
-      rootElement.style.setProperty(cssVariableName, cssVariableValue);
-    }
+    rootElement.style.setProperty(cssVariableName, cssVariableValue);
   };
 
   const resetCssVariables = () => {
     const rootElement = getElementToApplyCssVars({ query: config.elementQuery });
 
-    for (const [cssVariableName, cssVariableValue] of Object.entries(cssVariablesStates)) {
-      rootElement.style.removeProperty(cssVariableName);
+    for (const row of rows) {
+      rootElement.style.removeProperty(row.name);
     }
+
+    setRows([]);
+    setTimeout(() => setRows(clone(rows)));
   }
 
   const resetArgs = () => {
     resetCssVariables();
-    cssVariablesStates = { };
   };
 
   const updateArgs= (arg) => {
     const [cssVariableName] = Object.keys(arg);
     const cssVariableValue = arg[cssVariableName];
 
-    // Do something when we change values
-    cssVariablesStates[cssVariableName] = cssVariableValue;
-    applyCssVariables();
+    applyCssVariables(cssVariableName, cssVariableValue);
   };
 
   return <ArgsTable
     key={path}
     compact={false}
     inAddonPanel={true}
-    rows={rows}
+    rows={getRows}
     args={args}
     globals={globals}
     updateArgs={updateArgs}
