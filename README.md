@@ -7,7 +7,7 @@ Storybook's addon to pilot CSS custom properties (a.k.a CSS variables)
 ### From git
 
 ````bash
-npm install --save-dev --save-exact git+https://github.com/rochejul/storybook-addon-css-custom-properties#v1.0.1
+npm install --save-dev --save-exact git+ssh://git@github.com:rochejul/storybook-addon-css-custom-properties.git#v1.1.0
 ````
 
 ## Example of usage
