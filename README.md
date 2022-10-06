@@ -2,6 +2,15 @@
 
 Storybook's addon to pilot CSS custom properties (a.k.a CSS variables)
 
+## Context
+
+There are some addons for CSS vars in Storybook. Mostly  [@ljcl/storybook-addon-cssprop](https://storybook.js.org/addons/@ljcl/storybook-addon-cssprops/).
+But this plugins: doesn't work well with React or real web components (it injects the CSS vars on the body of the panel, not on the element).
+
+Then this addon should:
+ - work better with React components, LWC components, etc...
+ - not persist the configuration
+
 ## Install it
 
 ### From git
