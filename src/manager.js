@@ -148,7 +148,7 @@ addons.register(ADDON_ID, (api) => {
 
       return (
         <AddonPanel key={key} active={active}>
-          <ControlsPanel />
+          <AddonCssVarPanel />
         </AddonPanel>
       );
     },

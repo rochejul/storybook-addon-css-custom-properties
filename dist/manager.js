@@ -28,7 +28,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var ADDON_ID = 'cssVars';
+var ADDON_ID = "cssVars";
 var PANEL_ID = "".concat(ADDON_ID, "/panel");
 
 var clone = function clone(obj) {
@@ -36,8 +36,8 @@ var clone = function clone(obj) {
 };
 
 var getIframeRoot = function getIframeRoot() {
-  var iframe = document.querySelector('iframe#storybook-preview-iframe');
-  var root = iframe.contentWindow.document.querySelector('#root');
+  var iframe = document.querySelector("iframe#storybook-preview-iframe");
+  var root = iframe.contentWindow.document.querySelector("#root");
   return root;
 };
 
@@ -79,7 +79,7 @@ var AddonCssVarTable = function AddonCssVarTable() {
       category: "",
       key: cssVarName,
       control: {
-        type: 'color',
+        type: "color",
         value: cssVarValue //presetColors,
 
       },
@@ -160,7 +160,9 @@ var AddonCssVarPanel = function AddonCssVarPanel() {
   var config = (0, _api.useParameter)(ADDON_ID, null);
 
   if (!config || Object.keys(config.vars).length === 0) {
-    return /*#__PURE__*/_react["default"].createElement("div", null, "No story parameter defined");
+    return /*#__PURE__*/_react["default"].createElement("div", {
+      style: "text-align: middle;"
+    }, "No story parameter defined: we can't display the related CSS custom properties (a.k.a. CSS vars)");
   }
 
   return /*#__PURE__*/_react["default"].createElement(AddonCssVarTable, null);
@@ -172,15 +174,20 @@ _addons.addons.register(ADDON_ID, function (api) {
     title: function title() {
       var config = (0, _api.useParameter)(ADDON_ID, null);
       var count = config && Object.keys(config.vars).length || 0;
-      var suffix = count === 0 ? '' : " (".concat(count, ")");
+      var suffix = count === 0 ? "" : " (".concat(count, ")");
       return "CSS vars".concat(suffix);
     },
     render: function render(_ref2) {
       var active = _ref2.active,
           key = _ref2.key;
+
+      if (!active || !api.getCurrentStoryData()) {
+        return null;
+      }
+
       return /*#__PURE__*/_react["default"].createElement(_components.AddonPanel, {
-        active: active,
-        key: key
+        key: key,
+        active: active
       }, /*#__PURE__*/_react["default"].createElement(AddonCssVarPanel, null));
     }
   });
