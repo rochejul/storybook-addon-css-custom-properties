@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { addons, types } from '@storybook/addons';
-import { useParameter, useStorybookState, useArgs, useGlobals } from '@storybook/api';
-import { AddonPanel, ArgsTable } from '@storybook/components';
+import { addons, types } from "@storybook/addons";
+import {
+  useParameter,
+  useStorybookState,
+  useArgs,
+  useGlobals,
+} from "@storybook/api";
+import { AddonPanel, ArgsTable } from "@storybook/components";
 
-const ADDON_ID = 'cssVars';
+const ADDON_ID = "cssVars";
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 const clone = (obj) => {
@@ -12,10 +17,10 @@ const clone = (obj) => {
 };
 
 const getIframeRoot = () => {
-  const iframe = document.querySelector('iframe#storybook-preview-iframe');
-  const root = iframe.contentWindow.document.querySelector('#root');
+  const iframe = document.querySelector("iframe#storybook-preview-iframe");
+  const root = iframe.contentWindow.document.querySelector("#root");
   return root;
-}
+};
 
 const getElementToApplyCssVars = ({ query }) => {
   const rootElement = getIframeRoot();
@@ -26,17 +31,22 @@ const getElementToApplyCssVars = ({ query }) => {
   }
 
   return element || rootElement;
-}
+};
 
 const AddonCssVarTable = () => {
   const { path } = useStorybookState();
-  const [ args ] = useArgs();
-  const [ globals ] = useGlobals();
+  const [args] = useArgs();
+  const [globals] = useGlobals();
 
   const config = useParameter(ADDON_ID, null);
   const rows = Object.keys(config.vars).map((cssVarName) => {
     const cssConfig = config.vars[cssVarName];
-    const { value: cssVarValue, description: cssVarDescription = `CSS var (${cssVarName})`, category: cssVarCategory, subcategory: cssVarSubcategory } = cssConfig;
+    const {
+      value: cssVarValue,
+      description: cssVarDescription = `CSS var (${cssVarName})`,
+      category: cssVarCategory,
+      subcategory: cssVarSubcategory,
+    } = cssConfig;
 
     return {
       name: cssVarName,
@@ -44,7 +54,7 @@ const AddonCssVarTable = () => {
       category: "",
       key: cssVarName,
       control: {
-        type: 'color',
+        type: "color",
         value: cssVarValue,
         //presetColors,
       },
@@ -62,13 +72,17 @@ const AddonCssVarTable = () => {
   const [getRows, setRows] = useState(rows);
 
   const applyCssVariables = (cssVariableName, cssVariableValue) => {
-    const rootElement = getElementToApplyCssVars({ query: config.elementQuery });
+    const rootElement = getElementToApplyCssVars({
+      query: config.elementQuery,
+    });
 
     rootElement.style.setProperty(cssVariableName, cssVariableValue);
   };
 
   const resetCssVariables = () => {
-    const rootElement = getElementToApplyCssVars({ query: config.elementQuery });
+    const rootElement = getElementToApplyCssVars({
+      query: config.elementQuery,
+    });
 
     for (const row of rows) {
       rootElement.style.removeProperty(row.name);
@@ -76,29 +90,31 @@ const AddonCssVarTable = () => {
 
     setRows([]);
     setTimeout(() => setRows(clone(rows)));
-  }
+  };
 
   const resetArgs = () => {
     resetCssVariables();
   };
 
-  const updateArgs= (arg) => {
+  const updateArgs = (arg) => {
     const [cssVariableName] = Object.keys(arg);
     const cssVariableValue = arg[cssVariableName];
 
     applyCssVariables(cssVariableName, cssVariableValue);
   };
 
-  return <ArgsTable
-    key={path}
-    compact={false}
-    inAddonPanel={true}
-    rows={getRows}
-    args={args}
-    globals={globals}
-    updateArgs={updateArgs}
-    resetArgs={resetArgs}
-  />;
+  return (
+    <ArgsTable
+      key={path}
+      compact={false}
+      inAddonPanel={true}
+      rows={getRows}
+      args={args}
+      globals={globals}
+      updateArgs={updateArgs}
+      resetArgs={resetArgs}
+    />
+  );
 };
 
 const AddonCssVarPanel = () => {
@@ -116,14 +132,20 @@ addons.register(ADDON_ID, (api) => {
     type: types.PANEL,
     title() {
       const config = useParameter(ADDON_ID, null);
-      const count = config && Object.keys(config.vars).length || 0;
-      const suffix = count === 0 ? '' : ` (${count})`;
+      const count = (config && Object.keys(config.vars).length) || 0;
+      const suffix = count === 0 ? "" : ` (${count})`;
       return `CSS vars${suffix}`;
     },
-    render: ({ active, key }) => (
-      <AddonPanel active={active} key={key}>
-        <AddonCssVarPanel />
-      </AddonPanel>
-    ),
+    render: ({ active, key }) => {
+      if (!active || !api.getCurrentStoryData()) {
+        return null;
+      }
+
+      return (
+        <AddonPanel key={key} active={active}>
+          <ControlsPanel />
+        </AddonPanel>
+      );
+    },
   });
 });
