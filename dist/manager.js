@@ -94,7 +94,7 @@ var AddonCssVarTable = function AddonCssVarTable() {
     };
   });
 
-  var _useState = (0, _react.useState)(rows),
+  var _useState = (0, _react.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       getRows = _useState2[0],
       setRows = _useState2[1];
@@ -144,6 +144,9 @@ var AddonCssVarTable = function AddonCssVarTable() {
     applyCssVariables(cssVariableName, cssVariableValue);
   };
 
+  setTimeout(function () {
+    return setRows(clone(rows));
+  }, 250);
   return /*#__PURE__*/_react["default"].createElement(_components.ArgsTable, {
     key: path,
     compact: false,

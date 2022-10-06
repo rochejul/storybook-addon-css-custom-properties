@@ -69,7 +69,7 @@ const AddonCssVarTable = () => {
     };
   });
 
-  const [getRows, setRows] = useState(rows);
+  const [getRows, setRows] = useState([]);
 
   const applyCssVariables = (cssVariableName, cssVariableValue) => {
     const rootElement = getElementToApplyCssVars({
@@ -102,6 +102,8 @@ const AddonCssVarTable = () => {
 
     applyCssVariables(cssVariableName, cssVariableValue);
   };
+
+  setTimeout(() => setRows(clone(rows)), 250);
 
   return (
     <ArgsTable
