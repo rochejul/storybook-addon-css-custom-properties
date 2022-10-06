@@ -164,7 +164,8 @@ var AddonCssVarPanel = function AddonCssVarPanel() {
 
   if (!config || Object.keys(config.vars).length === 0) {
     var divStyle = {
-      textAlign: 'middle'
+      paddingTop: '1rem',
+      textAlign: 'center'
     };
     return /*#__PURE__*/_react["default"].createElement("div", {
       style: divStyle

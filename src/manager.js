@@ -124,7 +124,8 @@ const AddonCssVarPanel = () => {
 
   if (!config || Object.keys(config.vars).length === 0) {
     const divStyle = {
-      textAlign: 'middle',
+      paddingTop: '1rem',
+      textAlign: 'center',
     };
 
     return (
