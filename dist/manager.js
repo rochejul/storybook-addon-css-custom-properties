@@ -160,8 +160,11 @@ var AddonCssVarPanel = function AddonCssVarPanel() {
   var config = (0, _api.useParameter)(ADDON_ID, null);
 
   if (!config || Object.keys(config.vars).length === 0) {
+    var divStyle = {
+      textAlign: 'middle'
+    };
     return /*#__PURE__*/_react["default"].createElement("div", {
-      style: "text-align: middle;"
+      style: divStyle
     }, "No story parameter defined: we can't display the related CSS custom properties (a.k.a. CSS vars)");
   }
 

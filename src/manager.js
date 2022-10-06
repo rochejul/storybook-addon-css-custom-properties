@@ -121,8 +121,12 @@ const AddonCssVarPanel = () => {
   const config = useParameter(ADDON_ID, null);
 
   if (!config || Object.keys(config.vars).length === 0) {
+    const divStyle = {
+      textAlign: 'middle',
+    };
+
     return (
-      <div style="text-align: middle;">
+      <div style={divStyle}>
         No story parameter defined: we can't display the related CSS custom
         properties (a.k.a. CSS vars)
       </div>
