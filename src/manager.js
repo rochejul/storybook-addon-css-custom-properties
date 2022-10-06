@@ -121,7 +121,12 @@ const AddonCssVarPanel = () => {
   const config = useParameter(ADDON_ID, null);
 
   if (!config || Object.keys(config.vars).length === 0) {
-    return <div>No story parameter defined</div>;
+    return (
+      <div style="text-align: middle;">
+        No story parameter defined: we can't display the related CSS custom
+        properties (a.k.a. CSS vars)
+      </div>
+    );
   }
 
   return <AddonCssVarTable />;
