@@ -16,7 +16,7 @@ Then this addon should:
 ### From git
 
 ````bash
-npm install --save-dev --save-exact git+ssh://git@github.com:rochejul/storybook-addon-css-custom-properties.git#v1.1.0
+npm install --save-dev --save-exact git+ssh://git@github.com:rochejul/storybook-addon-css-custom-properties.git#v1.2.0
 ````
 
 ## Example of usage
