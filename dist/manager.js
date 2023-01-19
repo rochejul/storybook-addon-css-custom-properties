@@ -82,6 +82,11 @@ var AddonCssVarTable = function AddonCssVarTable() {
       name: cssVarName,
       description: cssVarDescription,
       category: "",
+      type: {
+        name: 'string',
+        required: false
+      },
+      defaultValue: cssVarValue,
       key: cssVarName,
       control: cssVarControl,
       table: {
