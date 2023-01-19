@@ -72,14 +72,16 @@ var AddonCssVarTable = function AddonCssVarTable() {
         _cssConfig$descriptio = cssConfig.description,
         cssVarDescription = _cssConfig$descriptio === void 0 ? "CSS var (".concat(cssVarName, ")") : _cssConfig$descriptio,
         cssVarCategory = cssConfig.category,
-        cssVarSubcategory = cssConfig.subcategory;
+        cssVarSubcategory = cssConfig.subcategory,
+        _cssConfig$control = cssConfig.control,
+        cssControl = _cssConfig$control === void 0 ? 'color' : _cssConfig$control;
     return {
       name: cssVarName,
       description: cssVarDescription,
       category: "",
       key: cssVarName,
       control: {
-        type: "color",
+        type: cssControl,
         value: cssVarValue //presetColors,
 
       },

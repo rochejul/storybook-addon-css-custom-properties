@@ -16,7 +16,7 @@ Then this addon should:
 ### From git
 
 ````bash
-npm install --save-dev --save-exact git+ssh://git@github.com:rochejul/storybook-addon-css-custom-properties.git#v1.2.0
+npm install --save-dev --save-exact git+ssh://git@github.com:rochejul/storybook-addon-css-custom-properties.git#v1.3.1
 ````
 
 ## Example of usage
@@ -53,6 +53,7 @@ export default {
           value: '#1ea7fd', // Value
           description: 'Background color of the button', // Optional
           category: 'Colors', // Optional
+          // control: 'color', // Optional
           // subcategory: 'Background' // Optional
         }
       }
