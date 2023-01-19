@@ -45,10 +45,6 @@ module.exports = {
 export default {
   title: 'Example/Button',
   component: Button,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
   parameters: {
     cssVars: {
       elementQuery: 'button', // Optional: where to find the element?

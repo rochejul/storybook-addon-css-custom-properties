@@ -46,6 +46,7 @@ const AddonCssVarTable = () => {
       description: cssVarDescription = `CSS var (${cssVarName})`,
       category: cssVarCategory,
       subcategory: cssVarSubcategory,
+      control: cssControl = 'color'
     } = cssConfig;
 
     return {
@@ -54,7 +55,7 @@ const AddonCssVarTable = () => {
       category: "",
       key: cssVarName,
       control: {
-        type: "color",
+        type: cssControl,
         value: cssVarValue,
         //presetColors,
       },

@@ -7,9 +7,6 @@ export default {
   title: 'Example/Button',
   component: Button,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
   parameters: {
     cssVars: {
       elementQuery: 'button',
@@ -18,6 +15,12 @@ export default {
           value: '#1ea7fd',
           description: 'Background color of the button',
           category: 'Colors'
+        },
+        '--button-border-radius': {
+          value: '3rem',
+          description: 'Border radius of the button',
+          category: 'Border',
+          control: 'text'
         }
       }
     }
