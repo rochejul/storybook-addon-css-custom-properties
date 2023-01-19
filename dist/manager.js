@@ -74,17 +74,16 @@ var AddonCssVarTable = function AddonCssVarTable() {
         cssVarCategory = cssConfig.category,
         cssVarSubcategory = cssConfig.subcategory,
         _cssConfig$control = cssConfig.control,
-        cssControl = _cssConfig$control === void 0 ? 'color' : _cssConfig$control;
+        cssVarControl = _cssConfig$control === void 0 ? {
+      type: 'color',
+      value: cssVarValue
+    } : _cssConfig$control;
     return {
       name: cssVarName,
       description: cssVarDescription,
       category: "",
       key: cssVarName,
-      control: {
-        type: cssControl,
-        value: cssVarValue //presetColors,
-
-      },
+      control: cssVarControl,
       table: {
         type: "CSS Custom Property",
         category: cssVarCategory,
