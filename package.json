@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-css-custom-properties",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Storybook's addon to pilot CSS custom properties (a.k.a CSS variables)",
   "main": "dist/preset.js",
   "files": [
